@@ -24,7 +24,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   const image = product.images?.[0];
 
   return (
-    <Link href={`/products/${product.slug}`} className="group block overflow-hidden rounded-lg border">
+    <Link href={`/products/${product.slug}`} className="group block overflow-hidden rounded-lg">
       {image ? (
         <div className="relative aspect-square overflow-hidden">
           <Image
@@ -40,7 +40,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           No image available
         </div>
       )}
-      <div className="p-4">
+      <div className="mt-3">
         <h2 className="text-lg">{product.name}</h2>
         <p className="mt-1 text-sm">{product.description}</p>
         <div className="mt-4 flex items-center justify-between">

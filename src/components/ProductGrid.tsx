@@ -10,7 +10,7 @@ const ProductGrid = ({ products }: ProductGridProps) => {
     return <p>No products available</p>;
   }
   return (
-    <div>
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {products.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
