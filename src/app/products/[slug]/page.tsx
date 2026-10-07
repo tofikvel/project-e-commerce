@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import Image from "next/image";
+import AddToCartButton from "@/components/AddToCartButton";
 
 type ProductPageProps = {
   params: Promise<{
@@ -63,7 +64,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             <p className="mt-2 text-gray-500">{product.stock} items in stock</p>
           </div>
           <div className="mt-6">
-            <button className="px-6 py-3 cursor-pointer border bg-black text-white">Add To Cart</button>
+            <AddToCartButton productId={product.id} />
           </div>
         </div>
       </div>

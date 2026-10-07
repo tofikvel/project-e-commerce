@@ -10,7 +10,7 @@ const AddToCartButton = ({ productId }: AddToCartButtonProps) => {
   }
 
   return (
-    <button onClick={handleClick} className="px-6 py-3 cursor-pointer border bg-black text-white">
+    <button onClick={handleClick} className="cursor-pointer border bg-black px-6 py-3 text-white">
       Add To Cart
     </button>
   );
