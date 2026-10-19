@@ -1,12 +1,24 @@
 "use client";
+import { useCart } from "./CartProvider";
 
 type AddToCartButtonProps = {
   productId: string;
+  name: string;
+  price: number;
+  image: string | null;
 };
 
-const AddToCartButton = ({ productId }: AddToCartButtonProps) => {
+const AddToCartButton = ({ productId, name, price, image }: AddToCartButtonProps) => {
+  const { addToCart } = useCart();
   function handleClick() {
-    console.log("Add To Cart: ", productId);
+    addToCart({
+      productId,
+      name,
+      price,
+      image,
+      quantity: 1,
+    });
+    console.log("Added to cart:", name);
   }
 
   return (

@@ -64,7 +64,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
             <p className="mt-2 text-gray-500">{product.stock} items in stock</p>
           </div>
           <div className="mt-6">
-            <AddToCartButton productId={product.id} />
+            <AddToCartButton
+              productId={product.id}
+              name={product.name}
+              price={product.price}
+              image={product.images?.[0]?.url ?? null}
+            />
           </div>
         </div>
       </div>
