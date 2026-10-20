@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import AddToCartButton from "./AddToCartButton";
 
 export type Product = {
   id: string;
@@ -49,7 +50,12 @@ export default function ProductCard({ product }: ProductCardProps) {
           <span>$ €{Number(product.price).toFixed(2)}</span>
         </div>
       </div>
-      <button className="w-full cursor-pointer border border-black p-2 roundedlgl">Add To Cart</button>
+      <AddToCartButton
+        productId={product.id}
+        name={product.name}
+        price={product.price}
+        image={product.images?.[0]?.url ?? null}
+      />
     </div>
   );
 }
