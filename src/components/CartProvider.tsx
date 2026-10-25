@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import type { CartItem } from "@/types/cart";
 
 const CartContext = createContext<CartContextType | null>(null);
@@ -16,6 +16,13 @@ type CartProviderProps = {
 
 const CartProvider = ({ children }: CartProviderProps) => {
   const [items, setItems] = useState<CartItem[]>([]);
+
+  useEffect(() => {
+    console.log("CartPrivder mounted");
+    return () => {
+      console.log("CartProvider unmounted");
+    };
+  }, []);
 
   function addToCart(item: CartItem) {
     setItems((currentItems) => {
@@ -33,6 +40,8 @@ const CartProvider = ({ children }: CartProviderProps) => {
       return [...currentItems, item];
     });
   }
+
+  console.log("CartProvider rendered");
 
   return <CartContext.Provider value={{ items, addToCart }}>{children}</CartContext.Provider>;
 };
