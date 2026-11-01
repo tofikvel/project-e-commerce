@@ -9,7 +9,7 @@ const CartCounter = () => {
   const totalItems = items.reduce((total, item) => total + item.quantity, 0);
 
   // displays the total quantity in the UI
-  return <div>Cart {totalItems}</div>;
+  return <div className={totalItems > 0 ? "text-blue-700" : ""}>{totalItems}</div>;
 };
 
 export default CartCounter;

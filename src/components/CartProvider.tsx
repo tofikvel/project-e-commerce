@@ -8,6 +8,9 @@ const CartContext = createContext<CartContextType | null>(null);
 type CartContextType = {
   items: CartItem[];
   addToCart: (item: CartItem) => void;
+  incrementItem: (productId: string) => void;
+  decrementItem: (productId: string) => void;
+  removeItem: (productId: string) => void;
 };
 
 type CartProviderProps = {
@@ -16,13 +19,6 @@ type CartProviderProps = {
 
 const CartProvider = ({ children }: CartProviderProps) => {
   const [items, setItems] = useState<CartItem[]>([]);
-
-  useEffect(() => {
-    console.log("CartPrivder mounted");
-    return () => {
-      console.log("CartProvider unmounted");
-    };
-  }, []);
 
   function addToCart(item: CartItem) {
     setItems((currentItems) => {
@@ -41,9 +37,27 @@ const CartProvider = ({ children }: CartProviderProps) => {
     });
   }
 
-  console.log("CartProvider rendered");
+  function incrementItem(productId: string) {
+    setItems((currentItems) =>
+      currentItems.map((item) => (item.productId === productId ? { ...item, quantity: item.quantity + 1 } : item)),
+    );
+  }
+  function decrementItem(productId: string) {
+    setItems((currentItems) =>
+      currentItems.map((item) =>
+        item.productId === productId && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item,
+      ),
+    );
+  }
+  function removeItem(productId: string) {
+    setItems((currentItems) => currentItems.filter((item) => item.productId !== productId));
+  }
 
-  return <CartContext.Provider value={{ items, addToCart }}>{children}</CartContext.Provider>;
+  return (
+    <CartContext.Provider value={{ items, addToCart, incrementItem, decrementItem, removeItem }}>
+      {children}
+    </CartContext.Provider>
+  );
 };
 
 export function useCart() {
