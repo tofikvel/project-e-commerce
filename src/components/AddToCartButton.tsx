@@ -18,7 +18,6 @@ const AddToCartButton = ({ productId, name, price, image }: AddToCartButtonProps
       image,
       quantity: 1,
     });
-    console.log("Added to cart:", name);
   }
 
   return (
