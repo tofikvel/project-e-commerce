@@ -19,6 +19,23 @@ type CartProviderProps = {
 
 const CartProvider = ({ children }: CartProviderProps) => {
   const [items, setItems] = useState<CartItem[]>([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    const savedCart = localStorage.getItem("cart");
+
+    if (savedCart) {
+      setItems(JSON.parse(savedCart));
+    }
+
+    setIsLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isLoaded) return;
+
+    localStorage.setItem("cart", JSON.stringify(items));
+  }, [items, isLoaded]);
 
   function addToCart(item: CartItem) {
     setItems((currentItems) => {

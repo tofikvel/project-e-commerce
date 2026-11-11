@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import Image from "next/image";
 import AddToCartButton from "@/components/AddToCartButton";
+import { notFound } from "next/navigation";
 
 type ProductPageProps = {
   params: Promise<{
@@ -15,29 +16,15 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   const { data: product, error } = await supabase
     .from("products")
-    .select(
-      `
-    *,
-    category:categories (
-      id,
-      name,
-      slug
-    ),
-    images:product_images (
-      id,
-      url,
-      alt,
-      sort_order
-    )
-  `,
-    )
+    .select(`*, category:categories (id, name,slug), images:product_images (id, url, alt, sort_order)`)
     .eq("slug", slug)
+    .order("sort_order", { referencedTable: "product_images", ascending: true })
     .single();
 
   if (error || !product) {
     return (
       <main className="mx-auto max-w-6xl p-8">
-        <h1 className="text-2xl font-bold">Product not found</h1>
+        <h1 className="text-2xl font-bold">{notFound()}</h1>
       </main>
     );
   }
@@ -60,7 +47,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             {product.category && <p className="text-sm text-gray-500">{product.category.name}</p>}
             <h1 className="text-4xl font-bold">{product.name}</h1>
             <p className="mt-4 text-gray-600">{product.description}</p>
-            <p className="mt-6 text-2xl font-bold">€{product.price}</p>
+            <p className="mt-6 text-2xl font-bold">{product.price} PLN</p>
             <p className="mt-2 text-gray-500">{product.stock} items in stock</p>
           </div>
           <div className="mt-6">

@@ -1,21 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import AddToCartButton from "./AddToCartButton";
-
-export type Product = {
-  id: string;
-  name: string;
-  slug: string;
-  description: string | null;
-  price: number;
-  stock: number;
-  images?: {
-    id: string;
-    url: string;
-    alt: string | null;
-    sort_order: number;
-  }[];
-};
+import { Product } from "@/types/product";
 
 type ProductCardProps = {
   product: Product;
@@ -47,7 +33,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         <h2 className="text-lg">{product.name}</h2>
         <p className="mt-1 text-sm">{product.description}</p>
         <div className="mt-4 flex items-center justify-between">
-          <span>$ €{Number(product.price).toFixed(2)}</span>
+          <span>{Number(product.price).toFixed(2)} PLN</span>
         </div>
       </div>
       <AddToCartButton
