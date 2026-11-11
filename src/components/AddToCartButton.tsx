@@ -6,9 +6,10 @@ type AddToCartButtonProps = {
   name: string;
   price: number;
   image: string | null;
+  stock: number;
 };
 
-const AddToCartButton = ({ productId, name, price, image }: AddToCartButtonProps) => {
+const AddToCartButton = ({ productId, name, price, image, stock }: AddToCartButtonProps) => {
   const { addToCart } = useCart();
   function handleClick() {
     addToCart({
@@ -17,6 +18,7 @@ const AddToCartButton = ({ productId, name, price, image }: AddToCartButtonProps
       price,
       image,
       quantity: 1,
+      stock,
     });
   }
 

@@ -39,16 +39,21 @@ const CartProvider = ({ children }: CartProviderProps) => {
 
   function addToCart(item: CartItem) {
     setItems((currentItems) => {
-      // checking wether the item we are adding already exist in the cart, and if it is, we are saving the refference to that object into the existingItem
       const existingItem = currentItems.find((cartItem) => cartItem.productId === item.productId);
 
       // this just finds that item by comparing their id's and adding quantity or just adding one
       if (existingItem) {
-        return currentItems.map((cartItem) =>
-          cartItem.productId === item.productId
-            ? { ...cartItem, quantity: cartItem.quantity + item.quantity }
-            : cartItem,
-        );
+        return currentItems.map((cartItem) => {
+          // this return - returns an entire updated cart array
+          if (cartItem.productId !== item.productId) {
+            return cartItem;
+          }
+          const newQuantity = cartItem.quantity + item.quantity;
+          if (newQuantity <= cartItem.stock) {
+            return { ...cartItem, quantity: newQuantity }; // this return - returns one updated cart item to the map()
+          }
+          return cartItem;
+        });
       }
       return [...currentItems, item];
     });
