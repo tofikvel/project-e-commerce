@@ -76,9 +76,13 @@ const CartProvider = ({ children }: CartProviderProps) => {
 
   function decrementItem(productId: string) {
     setItems((currentItems) =>
-      currentItems.map((item) =>
-        item.productId === productId && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item,
-      ),
+      currentItems.map((item) => {
+        if (item.productId === productId && item.quantity > 1) {
+          return { ...item, quantity: item.quantity - 1 };
+        } else {
+          return item;
+        }
+      }),
     );
   }
   function removeItem(productId: string) {

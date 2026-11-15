@@ -1,9 +1,10 @@
 "use client";
+
 import { useCart } from "@/components/CartProvider";
-import Image from "next/image";
+import CartItem from "@/components/CartItem";
 
 const CartPage = () => {
-  const { items, incrementItem, decrementItem, removeItem } = useCart();
+  const { items } = useCart();
 
   const subtotal = items.reduce((total, item) => {
     return total + item.price * item.quantity;
@@ -14,56 +15,7 @@ const CartPage = () => {
       <div className="grid grid-cols-2 gap-4 items-start">
         <div className="">
           {items.map((item) => (
-            <div key={item.productId} className="rounded-md p-3 mt-3 mb-3 bg-white shadow-md">
-              <div className="flex space-x-2.5">
-                {item.image ? (
-                  <div className="h-32 w-32 shrink-0">
-                    <Image
-                      src={item.image}
-                      height={100}
-                      width={100}
-                      alt="cart_item_image"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                ) : (
-                  <p>No image</p>
-                )}
-                <div className="flex flex-1 flex-col justify-between" id="item-text-description">
-                  <div>
-                    <p>{item.name}</p>
-                    <p>{item.price}</p>
-                    <p>{item.quantity}</p>
-                  </div>
-                  <div className="flex justify-between" id="item-button-group">
-                    <div className="flex space-x-1">
-                      <button
-                        onClick={() => incrementItem(item.productId)}
-                        className="cursor-pointer border rounded-full h-10 w-10 shrink-0"
-                      >
-                        +
-                      </button>
-                      {item.quantity > 1 && (
-                        <button
-                          onClick={() => decrementItem(item.productId)}
-                          className="cursor-pointer border rounded-full h-10 w-10 shrink-0"
-                        >
-                          -
-                        </button>
-                      )}
-                    </div>
-                    <div>
-                      <button
-                        onClick={() => removeItem(item.productId)}
-                        className="cursor-pointer border rounded-full h-10 w-10 shrink-0"
-                      >
-                        X
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <CartItem item={item} key={item.productId} />
           ))}
         </div>
         <div className="rounded-md p-3 mt-3 mb-3 bg-white shadow-lg">
