@@ -55,15 +55,25 @@ const CartProvider = ({ children }: CartProviderProps) => {
           return cartItem;
         });
       }
-      return [...currentItems, item];
+      if (item.stock > 0) {
+        return [...currentItems, item];
+      }
+      return currentItems;
     });
   }
 
   function incrementItem(productId: string) {
     setItems((currentItems) =>
-      currentItems.map((item) => (item.productId === productId ? { ...item, quantity: item.quantity + 1 } : item)),
+      currentItems.map((item) => {
+        if (item.productId === productId && item.quantity < item.stock) {
+          return { ...item, quantity: item.quantity + 1 };
+        } else {
+          return item;
+        }
+      }),
     );
   }
+
   function decrementItem(productId: string) {
     setItems((currentItems) =>
       currentItems.map((item) =>
