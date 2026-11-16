@@ -11,7 +11,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   const image = product.images?.[0];
 
   return (
-    <div>
+    <article className="flex h-full flex-col">
       <Link href={`/products/${product.slug}`} className="group block overflow-hidden rounded-lg">
         {image ? (
           <div className="relative aspect-square overflow-hidden">
@@ -32,8 +32,8 @@ export default function ProductCard({ product }: ProductCardProps) {
       <div className="mt-3">
         <h2 className="text-lg">{product.name}</h2>
         <p className="mt-1 text-sm">{product.description}</p>
-        <div className="mt-4 flex items-center justify-between">
-          <span>{Number(product.price).toFixed(2)} PLN</span>
+        <div className="mt-3">
+          <span>PLN {Number(product.price).toFixed(2)}</span>
         </div>
       </div>
       <AddToCartButton
@@ -43,6 +43,6 @@ export default function ProductCard({ product }: ProductCardProps) {
         image={product.images?.[0]?.url ?? null}
         stock={product.stock}
       />
-    </div>
+    </article>
   );
 }

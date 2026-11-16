@@ -11,7 +11,7 @@ const CartSummary = () => {
 
   return (
     <div className="rounded-md p-3 mt-3 mb-3 bg-white shadow-lg">
-      <p className="font-bold">Subtotal: {subtotal.toFixed(2)} PLN</p>
+      <p className="font-bold">Subtotal: PLN {subtotal.toFixed(2)}</p>
     </div>
   );
 };

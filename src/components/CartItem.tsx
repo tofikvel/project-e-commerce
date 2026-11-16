@@ -29,7 +29,7 @@ export default function CartItem({ item }: CartItemProps) {
         <div className="flex flex-1 flex-col justify-between" id="item-text-description">
           <div>
             <p>{item.name}</p>
-            <p>{item.price}</p>
+            <p>PLN {item.price}</p>
             <p>{item.quantity}</p>
           </div>
           <div className="flex justify-between" id="item-button-group">

@@ -23,7 +23,10 @@ const AddToCartButton = ({ productId, name, price, image, stock }: AddToCartButt
   }
 
   return (
-    <button onClick={handleClick} className="cursor-pointer border bg-black px-6 py-3 text-white">
+    <button
+      onClick={handleClick}
+      className="w-full px-6 py-3 cursor-pointer border border-gray-950 text-gray-950 rounded-sm"
+    >
       Add To Cart
     </button>
   );
