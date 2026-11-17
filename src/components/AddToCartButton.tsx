@@ -1,6 +1,5 @@
 "use client";
 import { useCart } from "./CartProvider";
-import { useState } from "react";
 
 type AddToCartButtonProps = {
   productId: string;
@@ -8,18 +7,11 @@ type AddToCartButtonProps = {
   price: number;
   image: string | null;
   stock: number;
+  quantity: number;
 };
 
-const AddToCartButton = ({ productId, name, price, image, stock }: AddToCartButtonProps) => {
+const AddToCartButton = ({ productId, name, price, image, stock, quantity }: AddToCartButtonProps) => {
   const { addToCart } = useCart();
-  const [quantity, setQuantity] = useState(1);
-
-  function increaseQuantity() {
-    setQuantity((prev) => (prev < stock ? prev + 1 : prev));
-  }
-  function decreaseQuantity() {
-    setQuantity((prev) => (prev > 1 ? prev - 1 : prev));
-  }
 
   function handleClick() {
     addToCart({
@@ -34,29 +26,6 @@ const AddToCartButton = ({ productId, name, price, image, stock }: AddToCartButt
 
   return (
     <>
-      <div className="flex items-center gap-1 mb-2">
-        <div>
-          <button
-            disabled={stock === 0 || quantity === 1}
-            onClick={decreaseQuantity}
-            className="px-4 py-2 cursor-pointer border disabled:cursor-not-allowed disabled:opacity-40"
-          >
-            -
-          </button>
-        </div>
-
-        <span className="px-4 py-2 cursor-pointer border">{quantity}</span>
-        <div>
-          <button
-            disabled={stock === 0 || quantity >= stock}
-            onClick={increaseQuantity}
-            className="px-4 py-2 cursor-pointer border disabled:cursor-not-allowed disabled:opacity-40"
-          >
-            +
-          </button>
-        </div>
-      </div>
-
       <button
         disabled={stock === 0}
         onClick={handleClick}

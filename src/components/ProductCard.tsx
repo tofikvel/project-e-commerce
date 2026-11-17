@@ -42,6 +42,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         price={product.price}
         image={product.images?.[0]?.url ?? null}
         stock={product.stock}
+        quantity={1}
       />
     </article>
   );

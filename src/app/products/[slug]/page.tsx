@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import Image from "next/image";
-import AddToCartButton from "@/components/AddToCartButton";
 import { notFound } from "next/navigation";
+import ProductPurchase from "@/components/ProductPurchase";
 
 type ProductPageProps = {
   params: Promise<{
@@ -22,11 +22,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
     .single();
 
   if (error || !product) {
-    return (
-      <main className="mx-auto max-w-6xl p-8">
-        <h1 className="text-2xl font-bold">{notFound()}</h1>
-      </main>
-    );
+    notFound();
   }
 
   return (
@@ -51,7 +47,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             <p className="mt-2 text-gray-500">{product.stock} items available in stock</p>
           </div>
           <div className="mt-auto">
-            <AddToCartButton
+            <ProductPurchase
               productId={product.id}
               name={product.name}
               price={product.price}
