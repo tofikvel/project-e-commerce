@@ -37,23 +37,20 @@ export default function CartItem({ item }: CartItemProps) {
               {item.quantity > 1 && (
                 <button
                   onClick={() => decrementItem(item.productId)}
-                  className="cursor-pointer border rounded-full h-10 w-10 shrink-0"
+                  className="cursor-pointer border h-10 w-10 shrink-0"
                 >
                   -
                 </button>
               )}
               <button
                 onClick={() => incrementItem(item.productId)}
-                className="cursor-pointer border rounded-full h-10 w-10 shrink-0"
+                className="cursor-pointer border h-10 w-10 shrink-0"
               >
                 +
               </button>
             </div>
             <div>
-              <button
-                onClick={() => removeItem(item.productId)}
-                className="cursor-pointer border rounded-full h-10 w-10 shrink-0"
-              >
+              <button onClick={() => removeItem(item.productId)} className="cursor-pointer border h-10 w-10 shrink-0">
                 X
               </button>
             </div>

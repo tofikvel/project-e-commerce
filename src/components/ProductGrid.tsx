@@ -11,13 +11,13 @@ type ProductGridProps = {
 const ProductGrid = ({ products }: ProductGridProps) => {
   const [searchQuery, setSearchQuery] = useState("");
 
-  const filteredProducts = products.filter((product) => {
-    return product.name.toLowerCase().includes(searchQuery.toLowerCase());
-  });
-
   if (products.length === 0) {
     return <p>No products available</p>;
   }
+
+  const filteredProducts = products.filter((product) => {
+    return product.name.toLowerCase().includes(searchQuery.toLowerCase());
+  });
 
   return (
     <>
@@ -31,11 +31,15 @@ const ProductGrid = ({ products }: ProductGridProps) => {
           placeholder="Search products"
         />
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-        {filteredProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+      {filteredProducts.length === 0 ? (
+        <h2>No products found. Try a different search.</h2>
+      ) : (
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          {filteredProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      )}
     </>
   );
 };

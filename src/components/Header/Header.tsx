@@ -4,7 +4,7 @@ import CartCounter from "../CartCounter";
 
 const Header = () => {
   return (
-    <header className="bg-gray-700 text-white">
+    <header className="bg-[#003566] text-white">
       <nav className="flex justify-between items-center mx-auto w-full max-w-6xl min-h-16 px-4 py-3 sm-px-6">
         <div>
           <Link href="/">Home</Link>
