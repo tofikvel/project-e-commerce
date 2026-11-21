@@ -16,10 +16,20 @@ export default async function Home() {
     );
   }
 
+  const { data: categories, error: categoriesError } = await supabase.from("categories").select(`*`);
+  if (categoriesError) {
+    return (
+      <main>
+        <h1>Something went wrong</h1>
+        <pre>{categoriesError.message}</pre>
+      </main>
+    );
+  }
+
   return (
     <main className="mx-auto max-w-6xl p-8">
       <div className="mt-8">
-        <ProductGrid products={products} />
+        <ProductGrid products={products} categories={categories} />
       </div>
     </main>
   );

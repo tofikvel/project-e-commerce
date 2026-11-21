@@ -6,9 +6,10 @@ import { useState } from "react";
 
 type ProductGridProps = {
   products: Product[];
+  categories: { id: string; name: string; slug: string }[];
 };
 
-const ProductGrid = ({ products }: ProductGridProps) => {
+const ProductGrid = ({ products, categories }: ProductGridProps) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   if (products.length === 0) {
