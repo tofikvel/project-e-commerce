@@ -2,7 +2,7 @@
 
 import ProductCard from "./ProductCard";
 import type { Product } from "@/types/product";
-import { useState } from "react";
+import { lazy, useState } from "react";
 
 type ProductGridProps = {
   products: Product[];
@@ -11,13 +11,17 @@ type ProductGridProps = {
 
 const ProductGrid = ({ products, categories }: ProductGridProps) => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   if (products.length === 0) {
     return <p>No products available</p>;
   }
 
   const filteredProducts = products.filter((product) => {
-    return product.name.toLowerCase().includes(searchQuery.toLowerCase());
+    return (
+      (selectedCategory === "" || product.category.id === selectedCategory) &&
+      product.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
   });
 
   return (
@@ -32,6 +36,21 @@ const ProductGrid = ({ products, categories }: ProductGridProps) => {
           placeholder="Search products"
         />
       </div>
+
+      <select
+        name="productFilter"
+        id="productFilter"
+        value={selectedCategory}
+        onChange={(event) => setSelectedCategory(event.target.value)}
+      >
+        <option value="">All categories</option>
+        {categories.map((category) => (
+          <option value={category.id} key={category.id}>
+            {category.name}
+          </option>
+        ))}
+      </select>
+
       {filteredProducts.length === 0 ? (
         <h2>No products found. Try a different search.</h2>
       ) : (
