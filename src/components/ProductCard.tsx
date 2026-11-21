@@ -32,6 +32,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       <div className="mt-3">
         <h2 className="text-lg">{product.name}</h2>
         <p className="mt-1 text-sm">{product.description}</p>
+        <p className="mt-1 text-sm">{product.category.name}</p>
         <div className="mt-3">
           <span>PLN {Number(product.price).toFixed(2)}</span>
         </div>

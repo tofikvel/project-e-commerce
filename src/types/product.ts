@@ -2,6 +2,11 @@ export type Product = {
   id: string;
   name: string;
   slug: string;
+  category: {
+    id: string;
+    name: string;
+    slug: string;
+  };
   description: string | null;
   price: number;
   stock: number;
