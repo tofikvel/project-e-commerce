@@ -2,8 +2,8 @@
 
 import ProductCard from "./ProductCard";
 import type { Product } from "@/types/product";
-import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
+import { useFilters } from "@/components/FilterProvider";
 
 type ProductGridProps = {
   products: Product[];
@@ -13,6 +13,12 @@ type ProductGridProps = {
 const ProductGrid = ({ products, categories }: ProductGridProps) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
+  const { resetSignal } = useFilters();
+
+  useEffect(() => {
+    setSearchQuery("");
+    setSelectedCategory("");
+  }, [resetSignal]);
 
   if (products.length === 0) {
     return <p>No products available</p>;
