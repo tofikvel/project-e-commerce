@@ -2,7 +2,8 @@
 
 import ProductCard from "./ProductCard";
 import type { Product } from "@/types/product";
-import { lazy, useState } from "react";
+import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
 
 type ProductGridProps = {
   products: Product[];
