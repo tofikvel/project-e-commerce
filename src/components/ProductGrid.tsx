@@ -13,6 +13,7 @@ type ProductGridProps = {
 const ProductGrid = ({ products, categories }: ProductGridProps) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [sortOrder, setSortOrder] = useState<"" | "price-asc" | "price-desc">("");
   const { resetSignal } = useFilters();
 
   useEffect(() => {
@@ -31,6 +32,15 @@ const ProductGrid = ({ products, categories }: ProductGridProps) => {
     );
   });
 
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    if (sortOrder === "price-asc") {
+      return a.price - b.price;
+    } else if (sortOrder === "price-desc") {
+      return b.price - a.price;
+    }
+    return 0;
+  });
+
   return (
     <>
       <div>
@@ -43,26 +53,37 @@ const ProductGrid = ({ products, categories }: ProductGridProps) => {
           placeholder="Search products"
         />
       </div>
-
-      <select
-        name="productFilter"
-        id="productFilter"
-        value={selectedCategory}
-        onChange={(event) => setSelectedCategory(event.target.value)}
-      >
-        <option value="">All categories</option>
-        {categories.map((category) => (
-          <option value={category.id} key={category.id}>
-            {category.name}
-          </option>
-        ))}
-      </select>
+      <div className="flex justify-between">
+        <select
+          name="productFilter"
+          id="productFilter"
+          value={selectedCategory}
+          onChange={(event) => setSelectedCategory(event.target.value)}
+        >
+          <option value="">All categories</option>
+          {categories.map((category) => (
+            <option value={category.id} key={category.id}>
+              {category.name}
+            </option>
+          ))}
+        </select>
+        <select
+          name="productSort"
+          id="productSort"
+          value={sortOrder}
+          onChange={(event) => setSortOrder(event.target.value as "" | "price-asc" | "price-desc")}
+        >
+          <option value="">Default order</option>
+          <option value="price-asc">Price: low to high</option>
+          <option value="price-desc">Price: high to low</option>
+        </select>
+      </div>
 
       {filteredProducts.length === 0 ? (
         <h2>No products found. Try a different search.</h2>
       ) : (
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {filteredProducts.map((product) => (
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-3">
+          {sortedProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
