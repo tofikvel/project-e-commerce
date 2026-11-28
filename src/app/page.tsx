@@ -27,7 +27,7 @@ export default async function Home() {
   }
 
   return (
-    <main className="mx-auto max-w-6xl p-8">
+    <main className="mx-auto w-full max-w-6xl p-8">
       <div className="mt-8">
         <ProductGrid products={products} categories={categories} />
       </div>

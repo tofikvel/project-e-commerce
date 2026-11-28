@@ -11,7 +11,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   const image = product.images?.[0];
 
   return (
-    <article className="flex h-full flex-col">
+    <article className="flex h-full w-full min-w-0 flex-col">
       <Link href={`/products/${product.slug}`} className="group block overflow-hidden rounded-lg">
         {image ? (
           <div className="relative aspect-square overflow-hidden">

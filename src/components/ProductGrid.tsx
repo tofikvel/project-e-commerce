@@ -14,12 +14,20 @@ const ProductGrid = ({ products, categories }: ProductGridProps) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [sortOrder, setSortOrder] = useState<"" | "price-asc" | "price-desc">("");
+  const [visibleCount, setVisibleCount] = useState(6);
   const { resetSignal } = useFilters();
 
+  // resets states when user clicks on Home link in navbar
   useEffect(() => {
     setSearchQuery("");
     setSelectedCategory("");
+    setSortOrder("");
+    setVisibleCount(6);
   }, [resetSignal]);
+
+  useEffect(() => {
+    setVisibleCount(6);
+  }, [searchQuery, selectedCategory, sortOrder]);
 
   if (products.length === 0) {
     return <p>No products available</p>;
@@ -40,6 +48,8 @@ const ProductGrid = ({ products, categories }: ProductGridProps) => {
     }
     return 0;
   });
+
+  const visibleProducts = sortedProducts.slice(0, visibleCount);
 
   return (
     <>
@@ -82,10 +92,17 @@ const ProductGrid = ({ products, categories }: ProductGridProps) => {
       {filteredProducts.length === 0 ? (
         <h2>No products found. Try a different search.</h2>
       ) : (
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-3">
-          {sortedProducts.map((product) => (
+        <div className="w-full min-w-0 grid grid-cols-2 md:grid-cols-3 gap-4 mt-3">
+          {visibleProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
+        </div>
+      )}
+      {visibleCount < sortedProducts.length && (
+        <div className="flex justify-center mt-3">
+          <button onClick={() => setVisibleCount((prev) => prev + 6)} className="mx-auto p-3 cursor-pointer border">
+            Load More
+          </button>
         </div>
       )}
     </>
